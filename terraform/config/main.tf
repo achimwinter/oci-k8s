@@ -22,11 +22,17 @@ module "cert-manager" {
   source = "./modules/cert-manager"
 }
 
-# module "postgres" {
-#   source = "./modules/postgres"
+module "postgres" {
+  source = "./modules/postgres"
 
-#   compartment_id = var.compartment_id
-# }
+  compartment_id = var.compartment_id
+}
+
+module "nextcloud" {
+  source = "./modules/nextcloud"
+
+  compartment_id = var.compartment_id
+}
 
 # module "vaultwarden" {
 #   source = "./modules/vaultwarden"
