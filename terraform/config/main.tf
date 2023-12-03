@@ -34,12 +34,12 @@ module "nextcloud" {
   compartment_id = var.compartment_id
 }
 
-# module "rmusicbot" {
-#   source = "./modules/rmusicbot"
+module "rmusicbot" {
+  source = "./modules/rmusicbot"
 
-#   compartment_id = var.compartment_id
-#   vault_id       = var.vault_id
-# }
+  compartment_id = var.compartment_id
+  vault_id       = var.vault_id
+}
 
 # module "vaultwarden" {
 #   source = "./modules/vaultwarden"
