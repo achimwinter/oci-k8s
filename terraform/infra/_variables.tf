@@ -38,7 +38,7 @@ variable "image_id" {
   description = "OCID of the latest oracle linux"
   type        = string
 
-  default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaxp2zqotv37r4zycmwfqywcujsh4scenphjjs5w2ozakmidg3vs6q"
+  default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaipc2p6iq75swnwzfvbcxtk6i4mjeevlldpua533ixe7gsecyuavq"
 }
 
 variable "achim_winter_domain_name" {
