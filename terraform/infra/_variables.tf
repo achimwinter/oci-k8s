@@ -22,7 +22,7 @@ variable "kubernetes_version" {
   description = "Version of Kubernetes"
   type        = string
 
-  default     = "v1.26.7"
+  default     = "v1.27.2"
 }
 
 variable "kubernetes_worker_nodes" {
@@ -32,13 +32,12 @@ variable "kubernetes_worker_nodes" {
   default     = 2
 }
 
-# TODO: search for latest image
 variable "image_id" {
   # https://docs.oracle.com/en-us/iaas/images/oke-worker-node-oracle-linux-8x/
   description = "OCID of the latest oracle linux"
   type        = string
 
-  default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaxp2zqotv37r4zycmwfqywcujsh4scenphjjs5w2ozakmidg3vs6q"
+  default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaawbzbvlnvuihs3bgnlzypvdlkhnef3klmlnze6wft6gmfq6ogequa"
 }
 
 variable "achim_winter_domain_name" {
