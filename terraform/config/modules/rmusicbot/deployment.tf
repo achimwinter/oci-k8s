@@ -38,7 +38,7 @@ resource "kubernetes_deployment" "rmusicbot_deployment" {
 
           env {
             name  = "DISCORD_TOKEN"
-            value = "${base64decode(data.oci_secrets_secretbundle.rmusic_token.secret_bundle_content.0.content)}"
+            value = base64decode(data.oci_secrets_secretbundle.rmusic_token.secret_bundle_content.0.content)
           }
           env {
             name  = "PREFIX"
