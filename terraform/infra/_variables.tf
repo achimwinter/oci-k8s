@@ -22,7 +22,7 @@ variable "kubernetes_version" {
   description = "Version of Kubernetes"
   type        = string
 
-  default     = "v1.27.2"
+  default     = "v1.28.2"
 }
 
 variable "kubernetes_worker_nodes" {
@@ -37,7 +37,7 @@ variable "image_id" {
   description = "OCID of the latest oracle linux"
   type        = string
 
-  default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaawbzbvlnvuihs3bgnlzypvdlkhnef3klmlnze6wft6gmfq6ogequa"
+  default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaqc4pu3po5xhvpkeejm2yuqrymggvf73v7bqruk535x4skreclveq"
 }
 
 variable "achim_winter_domain_name" {
