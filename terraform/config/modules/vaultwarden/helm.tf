@@ -2,33 +2,38 @@ resource "helm_release" "vaultwarden" {
   chart      = "vaultwarden"
   name       = "vaultwarden"
   repository = "https://charts.gabe565.com"
-  version    = "0.11.0"
+  version    = "0.11.2"
   namespace  = "vaultwarden"
 
   create_namespace = true
   atomic           = true
   cleanup_on_fail  = true
   lint             = true
-  timeout          = 360
+  timeout          = 240
 
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   values = [<<YAML
 env:
-  ADMIN_TOKEN: ilashdflhaui23hu4rihuf89hvseihf
-  DOMAIN: https://pass.achim-winter.eu
+  ADMIN_TOKEN: "${base64decode(data.oci_secrets_secretbundle.admin_token.secret_bundle_content.0.content)}"
+  SIGNUPS_ALLOWED: "false"
 ingress:
   main:
-    enabled: false
+    enabled: true
+    tls: 
+    - secretName: pass-tls
+      hosts:
+        - pass.achim-winter.eu
     hosts:
       - host: pass.achim-winter.eu
         paths:
           - path: /
-  annotations:
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt
-    acme.cert-manager.io/http01-edit-in-place: "true"
-    kubernetes.io/ingress.class: nginx
-    external-dns.alpha.kubernetes.io/hostname: pass.achim-winter.eu
+            pathType: Prefix
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt
+      acme.cert-manager.io/http01-edit-in-place: "true"
+      kubernetes.io/ingress.class: nginx
+      external-dns.alpha.kubernetes.io/hostname: pass.achim-winter.eu
 persistence:
   data:
     enabled: true
@@ -40,7 +45,7 @@ postgresql:
   enabled: true
   auth:
     database: vaultwarden
-    postgresPassword: changeme
+    postgresPassword: "${random_password.vaultwarden_db_password.result}"
   primary:
     persistence: 
       enabled: true

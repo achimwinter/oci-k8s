@@ -1,10 +1,3 @@
-module "jmusicbot" {
-  source = "./modules/jmusicbot"
-
-  compartment_id = var.compartment_id
-  vault_id       = var.vault_id
-}
-
 module "longhorn" {
   source = "./modules/longhorn"
 
@@ -34,15 +27,23 @@ module "nextcloud" {
   compartment_id = var.compartment_id
 }
 
-module "rmusicbot" {
-  source = "./modules/rmusicbot"
+module "jmusicbot" {
+  source = "./modules/jmusicbot"
 
   compartment_id = var.compartment_id
   vault_id       = var.vault_id
 }
 
-# module "vaultwarden" {
-#   source = "./modules/vaultwarden"
+module "vaultwarden" {
+  source = "./modules/vaultwarden"
+
+  compartment_id = var.compartment_id
+}
+
+# module "rmusicbot" {
+#   source = "./modules/rmusicbot"
 
 #   compartment_id = var.compartment_id
+#   vault_id       = var.vault_id
 # }
+

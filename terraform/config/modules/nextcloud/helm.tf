@@ -2,7 +2,7 @@ resource "helm_release" "nextcloud" {
   chart      = "nextcloud"
   name       = "nextcloud"
   repository = "https://nextcloud.github.io/helm/"
-  version    = "4.3.6"
+  version    = "4.5.5"
   namespace  = "nextcloud"
 
   create_namespace = true
