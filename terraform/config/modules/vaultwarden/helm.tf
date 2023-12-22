@@ -19,15 +19,14 @@ env:
   INVITATIONS_ALLOWED: "false"
   SHOW_PASSWORD_HINT: "false"
   SHOW_PASSWORD_COUNT: "false"
-  DOMAIN: "pass.achim-winter.eu"
 
 ingress:
   main:
     enabled: true
     tls: 
-    - secretName: pass-tls
-      hosts:
-        - pass.achim-winter.eu
+      - secretName: pass-tls
+        hosts:
+          - pass.achim-winter.eu
     hosts:
       - host: pass.achim-winter.eu
         paths:
