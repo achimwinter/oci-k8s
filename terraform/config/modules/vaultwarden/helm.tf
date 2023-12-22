@@ -11,11 +11,16 @@ resource "helm_release" "vaultwarden" {
   lint             = true
   timeout          = 240
 
+  # ADMIN_TOKEN: "${base64decode(data.oci_secrets_secretbundle.admin_token.secret_bundle_content.0.content)}"
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   values = [<<YAML
 env:
-  ADMIN_TOKEN: "${base64decode(data.oci_secrets_secretbundle.admin_token.secret_bundle_content.0.content)}"
   SIGNUPS_ALLOWED: "false"
+  INVITATIONS_ALLOWED: "false"
+  SHOW_PASSWORD_HINT: "false"
+  SHOW_PASSWORD_COUNT: "false"
+  DOMAIN: "pass.achim-winter.eu"
+
 ingress:
   main:
     enabled: true
