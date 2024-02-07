@@ -2,7 +2,7 @@ resource "helm_release" "vaultwarden" {
   chart      = "vaultwarden"
   name       = "vaultwarden"
   repository = "https://charts.gabe565.com"
-  version    = "0.11.2"
+  version    = "0.11.4"
   namespace  = "vaultwarden"
 
   create_namespace = true
