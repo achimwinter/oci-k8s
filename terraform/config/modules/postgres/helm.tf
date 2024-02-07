@@ -2,7 +2,7 @@ resource "helm_release" "postgresql" {
   chart      = "postgresql"
   name       = "postgresql"
   repository = "https://charts.bitnami.com/bitnami"
-  version    = "13.4.3"
+  version    = "13.4.4"
   namespace  = "postgresql"
 
   create_namespace = true
