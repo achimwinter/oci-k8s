@@ -39,8 +39,3 @@ module "vaultwarden" {
 
   compartment_id = var.compartment_id
 }
-
-# module "palworld" {
-#   source = "./modules/palworld"
-# }
-
