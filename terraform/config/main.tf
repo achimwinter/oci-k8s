@@ -40,10 +40,7 @@ module "vaultwarden" {
   compartment_id = var.compartment_id
 }
 
-# module "rmusicbot" {
-#   source = "./modules/rmusicbot"
-
-#   compartment_id = var.compartment_id
-#   vault_id       = var.vault_id
+# module "palworld" {
+#   source = "./modules/palworld"
 # }
 

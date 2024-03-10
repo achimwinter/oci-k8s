@@ -32,7 +32,7 @@ resource "kubernetes_deployment" "jmusicbot_deployment" {
         }
 
         container {
-          image = "alexandreteles/jmusicbot:latest"
+          image = "alexandreteles/jmusicbot:semeru-aarch64"
           name  = "jmusicbot-container"
 
           volume_mount {

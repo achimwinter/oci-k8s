@@ -9,7 +9,7 @@ resource "helm_release" "vaultwarden" {
   atomic           = true
   cleanup_on_fail  = true
   lint             = true
-  timeout          = 240
+  timeout          = 480
 
   # ADMIN_TOKEN: "${base64decode(data.oci_secrets_secretbundle.admin_token.secret_bundle_content.0.content)}"
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
@@ -49,7 +49,7 @@ postgresql:
   enabled: true
   auth:
     database: vaultwarden
-    postgresPassword: "${random_password.vaultwarden_db_password.result}"
+    postgresPassword: "${base64decode(data.oci_secrets_secretbundle.vaultwarden_db_password.secret_bundle_content.0.content)}"
   primary:
     persistence: 
       enabled: true
