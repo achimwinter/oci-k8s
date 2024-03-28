@@ -27,6 +27,8 @@ ingress:
     external-dns.alpha.kubernetes.io/hostname: nextcloud.achim-winter.eu
     nginx.ingress.kubernetes.io/proxy-body-size: 3G
     nginx.ingress.kubernetes.io/proxy-buffer-size: 400M
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
 internalDatabase:
   enabled: false
 externalDatabase:
