@@ -22,7 +22,7 @@ variable "kubernetes_version" {
   description = "Version of Kubernetes"
   type        = string
 
-  default     = "v1.28.2"
+  default     = "v1.29.1"
 }
 
 variable "kubernetes_worker_nodes" {
@@ -37,6 +37,7 @@ variable "image_id" {
   description = "OCID of the latest oracle linux"
   type        = string
 
+  # TODO: Update to: ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaxjzt6rtstodjfdqmybm7qwalu36ctb674xsbpvimosb3t2akxerq
   default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaqc4pu3po5xhvpkeejm2yuqrymggvf73v7bqruk535x4skreclveq"
 }
 
