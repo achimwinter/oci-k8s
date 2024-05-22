@@ -2,14 +2,14 @@ resource "helm_release" "postgresql" {
   chart      = "postgresql"
   name       = "postgresql"
   repository = "https://charts.bitnami.com/bitnami"
-  version    = "14.3.3"
+  version    = "15.2.7"
   namespace  = "postgresql"
 
   create_namespace = true
   atomic           = true
   cleanup_on_fail  = true
   lint             = true
-  timeout          = 120
+  timeout          = 240
 
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   values = [<<YAML

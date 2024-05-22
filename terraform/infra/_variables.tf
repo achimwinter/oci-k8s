@@ -45,5 +45,5 @@ variable "achim_winter_domain_name" {
   description = "Main DNS Zone"
   type        = string
 
-  default     = "achim-winter.eu"
+  default     = "winter-achim.de"
 }

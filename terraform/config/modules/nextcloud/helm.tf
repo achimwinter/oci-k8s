@@ -2,14 +2,14 @@ resource "helm_release" "nextcloud" {
   chart      = "nextcloud"
   name       = "nextcloud"
   repository = "https://nextcloud.github.io/helm/"
-  version    = "4.6.4"
-  namespace  = "nextcloud"
+  version    = "4.6.8"
+  namespace  = "nextcloud-test"
 
   create_namespace = true
   atomic           = true
   cleanup_on_fail  = true
   lint             = true
-  timeout          = 240
+  timeout          = 400
 
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   values = [<<YAML
@@ -18,13 +18,13 @@ ingress:
   tls: 
    - secretName: nextcloud-tls
      hosts:
-       - nextcloud.achim-winter.eu
+       - cloud.winter-achim.de
   annotations:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt
     acme.cert-manager.io/http01-edit-in-place: "true"
     kubernetes.io/ingress.class: nginx
-    external-dns.alpha.kubernetes.io/hostname: nextcloud.achim-winter.eu
+    external-dns.alpha.kubernetes.io/hostname: cloud.winter-achim.de
     nginx.ingress.kubernetes.io/proxy-body-size: 3G
     nginx.ingress.kubernetes.io/proxy-buffer-size: 400M
     nginx.ingress.kubernetes.io/enable-cors: "true"
@@ -41,7 +41,7 @@ externalDatabase:
 phpClientHttpsFix:
    enabled: true
 nextcloud:
-  host: nextcloud.achim-winter.eu
+  host: cloud.winter-achim.de
   username: "${base64decode(data.oci_secrets_secretbundle.nextcloud_username.secret_bundle_content.0.content)}"
   password: "${base64decode(data.oci_secrets_secretbundle.nextcloud_password.secret_bundle_content.0.content)}"
   configs:
