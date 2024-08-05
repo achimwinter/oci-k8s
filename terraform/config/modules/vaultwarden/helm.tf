@@ -9,7 +9,7 @@ resource "helm_release" "vaultwarden" {
   atomic           = true
   cleanup_on_fail  = true
   lint             = true
-  timeout          = 1200
+  timeout          = 600
 
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   # ADMIN_TOKEN: "${base64decode(data.oci_secrets_secretbundle.admin_token.secret_bundle_content.0.content)}"
