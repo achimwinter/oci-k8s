@@ -2,14 +2,14 @@ resource "helm_release" "vaultwarden" {
   chart      = "vaultwarden"
   name       = "vaultwarden"
   repository = "https://charts.gabe565.com"
-  version    = "0.13.0"
+  version    = "0.12.1"
   namespace  = "vaultwarden"
 
   create_namespace = true
   atomic           = true
   cleanup_on_fail  = true
   lint             = true
-  timeout          = 600
+  timeout          = 1200
 
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   # ADMIN_TOKEN: "${base64decode(data.oci_secrets_secretbundle.admin_token.secret_bundle_content.0.content)}"
