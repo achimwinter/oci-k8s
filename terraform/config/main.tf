@@ -27,12 +27,12 @@ module "nextcloud" {
   compartment_id = var.compartment_id
 }
 
-module "jmusicbot" {
-  source = "./modules/jmusicbot"
+# module "jmusicbot" {
+#   source = "./modules/jmusicbot"
 
-  compartment_id = var.compartment_id
-  vault_id       = var.vault_id
-}
+#   compartment_id = var.compartment_id
+#   vault_id       = var.vault_id
+# }
 
 module "vaultwarden" {
   source = "./modules/vaultwarden"
