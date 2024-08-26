@@ -32,11 +32,11 @@ resource "kubernetes_deployment" "jmusicbot_deployment" {
         }
 
         container {
-          image = "alexandreteles/jmusicbot:semeru-aarch64"
+          image = "craumix/jmusicbot:0.4.3"
           name  = "jmusicbot-container"
 
           volume_mount {
-            mount_path        = "/app/config.txt"
+            mount_path        = "/jmb/config/config.txt"
             mount_propagation = "None"
             name              = "config-volume"
             sub_path          = "config.txt"
@@ -45,7 +45,7 @@ resource "kubernetes_deployment" "jmusicbot_deployment" {
 
           env {
             name  = "CONFIG_PATH"
-            value = "/app/config.txt"
+            value = "/jmb/config/config.txt"
           }
         }
       }
