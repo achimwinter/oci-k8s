@@ -9,7 +9,7 @@ resource "helm_release" "postgresql" {
   atomic           = true
   cleanup_on_fail  = true
   lint             = true
-  timeout          = 240
+  timeout          = 300
 
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   values = [<<YAML

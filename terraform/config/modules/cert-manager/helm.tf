@@ -9,10 +9,11 @@ resource "helm_release" "cert-manager" {
   atomic           = true
   cleanup_on_fail  = true
   lint             = true
-  timeout          = 60
+  timeout          = 300
 
   values = [<<YAML
-installCRDs: true
+crds: 
+  enabled: true
 YAML
   ]
 
