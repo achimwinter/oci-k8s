@@ -22,7 +22,7 @@ variable "kubernetes_version" {
   description = "Version of Kubernetes"
   type        = string
 
-  default     = "v1.29.1"
+  default     = "v1.31.1"
 }
 
 variable "kubernetes_worker_nodes" {
