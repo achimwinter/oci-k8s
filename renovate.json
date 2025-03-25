@@ -1,19 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
     ":semanticCommits",
     "docker:disable"
   ],
-  "docker": {
-    "enabled": false
-  },
-  "terraform": {
-    "depTypes": ["helm_release"]
-  },
+  "terraform": {},
   "groupName": "all",
   "timezone": "Europe/Berlin",
   "schedule": [
     "before 3am on Monday"
+  ],
+  "packageRules": [
+    {
+      "matchCategories": [
+        "docker"
+      ],
+      "enabled": false
+    }
   ]
 }
