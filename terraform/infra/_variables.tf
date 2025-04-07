@@ -36,9 +36,8 @@ variable "image_id" {
   # https://docs.oracle.com/en-us/iaas/images/oke-worker-node-oracle-linux-8x/
   description = "OCID of the latest oracle linux"
   type        = string
-  
-  # TODO: Update to: ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaxjzt6rtstodjfdqmybm7qwalu36ctb674xsbpvimosb3t2akxerq
-  default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa7jique5okcjuhmqcrm2yzctpfwe535xmqvsnod4ll4ljuqa5sbma"
+
+  default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaajjkntls2acpuo76sl4dxvwslnybycp7g3gq6dw2v2woqbkxfjuaa"
 }
 
 variable "achim_winter_domain_name" {
