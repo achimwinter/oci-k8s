@@ -34,7 +34,7 @@ internalDatabase:
 externalDatabase:
   enabled: true
   type: postgresql
-  host: postgresql.postgresql.svc.cluster.local
+  host: postgresql-cnpg-rw.postgresql.svc.cluster.local
   user: "${base64decode(data.oci_secrets_secretbundle.nextcloud_db_username.secret_bundle_content.0.content)}"
   password: "${base64decode(data.oci_secrets_secretbundle.nextcloud_db_password.secret_bundle_content.0.content)}"
   database: nextcloud

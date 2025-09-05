@@ -21,6 +21,12 @@ module "postgres" {
   compartment_id = var.compartment_id
 }
 
+module "cn-postgres" {
+  source = "./modules/cn-pg"
+
+  compartment_id = var.compartment_id
+}
+
 module "nextcloud" {
   source = "./modules/nextcloud"
 
