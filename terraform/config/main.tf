@@ -15,12 +15,6 @@ module "cert-manager" {
   source = "./modules/cert-manager"
 }
 
-module "postgres" {
-  source = "./modules/postgres"
-
-  compartment_id = var.compartment_id
-}
-
 module "cn-postgres" {
   source = "./modules/cn-pg"
 
