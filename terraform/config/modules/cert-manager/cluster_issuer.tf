@@ -15,15 +15,11 @@ spec:
     server: https://acme-v02.api.letsencrypt.org/directory
     # Email address used for ACME registration
     email: k8s+achimwinter@users.noreply.github.com
-    # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
       name: letsencrypt
-    # Enable the HTTP-01 challenge provider
     solvers:
-    # An empty 'selector' means that this solver matches all domains
-    - selector: {}
-      http01:
+    - http01:
         ingress:
-          class: nginx
+          ingressClassName: nginx
 YAML
 }

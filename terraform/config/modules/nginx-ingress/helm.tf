@@ -2,7 +2,7 @@ resource "helm_release" "nginx_ingress" {
   chart      = "ingress-nginx"
   name       = "ingress-nginx"
   repository = "https://kubernetes.github.io/ingress-nginx"
-  version    = "4.13.1"
+  version    = "4.13.2"
   namespace  = "nginx-ingress"
 
   create_namespace = true
@@ -14,6 +14,8 @@ resource "helm_release" "nginx_ingress" {
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   values = [<<YAML
 controller:
+  admissionWebhooks:
+    enabled: true
   config:
     limit-rate: "1048576"
     limit-rate-after: "5242880"
