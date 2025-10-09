@@ -11,13 +11,11 @@ resource "helm_release" "vaultwarden" {
   lint             = true
   timeout          = 1200
 
-  # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
-  # ADMIN_TOKEN: "${base64decode(data.oci_secrets_secretbundle.admin_token.secret_bundle_content.0.content)}"
   values = [<<YAML
 controller:
   strategy: Recreate
 env:
-  SIGNUPS_ALLOWED: "true"
+  SIGNUPS_ALLOWED: "false"
   INVITATIONS_ALLOWED: "false"
   SHOW_PASSWORD_HINT: "false"
   SHOW_PASSWORD_COUNT: "false"
@@ -25,6 +23,7 @@ env:
 ingress:
   main:
     enabled: true
+    className: nginx
     tls: 
       - secretName: pass-tls
         hosts:
@@ -35,10 +34,11 @@ ingress:
           - path: /
             pathType: Prefix
     annotations:
-      kubernetes.io/tls-acme: "true"
+      kubernetes.io/ingress.class: nginx
       cert-manager.io/cluster-issuer: letsencrypt
       acme.cert-manager.io/http01-edit-in-place: "true"
       external-dns.alpha.kubernetes.io/hostname: pass.winter-achim.de
+
 persistence:
   data:
     enabled: true
@@ -46,6 +46,7 @@ persistence:
     accessMode: ReadWriteOnce
     storageClass: "longhorn"
     size: 1Gi
+
 postgresql:
   enabled: true
   auth:

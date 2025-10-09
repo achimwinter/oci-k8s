@@ -20,6 +20,6 @@ spec:
     solvers:
     - http01:
         ingress:
-          ingressClassName: nginx
+          class: nginx
 YAML
 }
