@@ -2,7 +2,7 @@ resource "helm_release" "longhorn" {
   chart      = "longhorn"
   name       = "longhorn"
   repository = "https://charts.longhorn.io"
-  version    = "1.9.1"
+  version    = "1.10.0"
   namespace  = "longhorn-system"
 
   create_namespace = true
@@ -13,7 +13,7 @@ resource "helm_release" "longhorn" {
 
   values = [<<YAML
 defaultSettings:
-  storageMinimalAvailablePercentage: 10
+  storageMinimalAvailablePercentage: "10"
 persistence:
   defaultClassReplicaCount: 2
 ingress:
