@@ -28,7 +28,7 @@ metadata:
   namespace: postgresql
 spec:
   # Cluster Configuration
-  instances: 3  # HA with 3 replicas
+  instances: 1
   primaryUpdateStrategy: unsupervised
   
   # PostgreSQL Configuration

@@ -2,14 +2,14 @@ resource "helm_release" "nextcloud" {
   chart      = "nextcloud"
   name       = "nextcloud"
   repository = "https://nextcloud.github.io/helm/"
-  version    = "7.0.2"
-  namespace  = "nextcloud-test"
+  version    = "8.4.1"
+  namespace  = "nextcloud"
 
   create_namespace = true
   atomic           = true
   cleanup_on_fail  = true
   lint             = true
-  timeout          = 400
+  timeout          = 1600
 
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   values = [<<YAML
@@ -50,7 +50,7 @@ nextcloud:
 persistence:
   enabled: true
   storageClass: "longhorn"
-  size: 20Gi
+  size: 10Gi
 primary:
   name: main
 YAML
