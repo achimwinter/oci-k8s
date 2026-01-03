@@ -18,17 +18,14 @@ persistence:
   defaultClassReplicaCount: 2
 ingress:
   enabled: true
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls: true
   host: storage.winter-achim.de
   tlsSecret: longhorn-cert
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     external-dns.alpha.kubernetes.io/hostname: storage.winter-achim.de
-    nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: basic-auth
-    nginx.ingress.kubernetes.io/auth-realm: "Enter your credentials"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    traefik.ingress.kubernetes.io/router.middlewares: longhorn-system-longhorn-auth@kubernetescrd
 YAML
   ]
 

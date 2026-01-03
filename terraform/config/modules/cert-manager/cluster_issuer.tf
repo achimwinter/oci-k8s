@@ -20,6 +20,6 @@ spec:
     solvers:
     - http01:
         ingress:
-          class: nginx
+          class: traefik
 YAML
 }

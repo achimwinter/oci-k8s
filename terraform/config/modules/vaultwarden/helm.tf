@@ -23,7 +23,7 @@ env:
 ingress:
   main:
     enabled: true
-    className: nginx
+    className: traefik
     tls: 
       - secretName: pass-tls
         hosts:
@@ -34,9 +34,7 @@ ingress:
           - path: /
             pathType: Prefix
     annotations:
-      kubernetes.io/ingress.class: nginx
       cert-manager.io/cluster-issuer: letsencrypt
-      acme.cert-manager.io/http01-edit-in-place: "true"
       external-dns.alpha.kubernetes.io/hostname: pass.winter-achim.de
 
 persistence:

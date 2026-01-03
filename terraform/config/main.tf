@@ -5,8 +5,8 @@ module "longhorn" {
   vault_id       = var.vault_id
 }
 
-module "ingress" {
-  source = "./modules/nginx-ingress"
+module "traefik" {
+  source = "./modules/traefik"
 
   compartment_id = var.compartment_id
 }

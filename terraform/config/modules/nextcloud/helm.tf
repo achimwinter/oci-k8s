@@ -15,7 +15,7 @@ resource "helm_release" "nextcloud" {
   values = [<<YAML
 ingress:
   enabled: true
-  className: nginx
+  className: traefik
   tls: 
    - secretName: nextcloud-tls
      hosts:
@@ -24,11 +24,6 @@ ingress:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt
     external-dns.alpha.kubernetes.io/hostname: cloud.winter-achim.de
-    nginx.ingress.kubernetes.io/proxy-body-size: 3G
-    nginx.ingress.kubernetes.io/proxy-buffer-size: 400M
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 internalDatabase:
   enabled: false
 externalDatabase:
