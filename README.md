@@ -7,7 +7,7 @@ for the workers, *if* you surpass the always free tier (which we don't).
 You get 4 oCpus and 24GB memory which are split into two worker-instances
 (`VM.Standard.A1.Flex` -> arm), allowing good resource utilization.
 The boot partions are 100Gb each, allowing `longhorn` to use around 60GB as in
-cluster storage. For the ingress class we use `nginx` with the oracle Flexible 
+cluster storage. For the ingress class we use `traefik` with the oracle Flexible 
 LB (10Mbps), because that's free as well.
 
 > :warning: This project uses arm instances, no x86 architecture
@@ -19,7 +19,7 @@ And with this being said, huge shoutout to [nce/ori-free-cloud-k8s](https://gith
 - [x] K8s control plane
 - [x] Worker Nodes
 - [x] Ingress  
-  nginx-ingress controller
+  traefik
 - [x] Storage  
   with longhorn
 
