@@ -8,7 +8,8 @@ provider "kubernetes" {
 }
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     config_path = "~/.kube/configs/oci.kubeconfig"
   }
 }
+
