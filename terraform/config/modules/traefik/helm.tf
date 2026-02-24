@@ -13,6 +13,9 @@ resource "helm_release" "traefik" {
 
   # https://github.com/oracle/oci-cloud-controller-manager/blob/master/docs/load-balancer-annotations.md
   values = [<<YAML
+global:
+  checkNewVersion: false
+
 deployment:
   replicas: 1
 
@@ -30,8 +33,6 @@ ports:
     exposedPort: 443
     expose: 
       default: true
-    tls:
-      enabled: true
   metrics:
     port: 9100
     expose: 
@@ -71,10 +72,6 @@ providers:
     enabled: true
     publishedService:
       enabled: true
-
-# Global Arguments
-globalArguments:
-  - "--global.checknewversion"
 
 # Additional Arguments
 additionalArguments:
