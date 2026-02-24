@@ -1,8 +1,8 @@
 resource "helm_release" "vaultwarden" {
   chart      = "vaultwarden"
   name       = "vaultwarden"
-  repository = "https://charts.gabe565.com"
-  version    = "0.16.1"
+  repository = "https://guerzon.github.io/vaultwarden"
+  version    = "0.34.6"
   namespace  = "vaultwarden"
 
   create_namespace = true
@@ -12,49 +12,40 @@ resource "helm_release" "vaultwarden" {
   timeout          = 1200
 
   values = [<<YAML
-controller:
-  strategy: Recreate
-env:
-  SIGNUPS_ALLOWED: "false"
-  INVITATIONS_ALLOWED: "false"
-  SHOW_PASSWORD_HINT: "false"
-  SHOW_PASSWORD_COUNT: "false"
+domain: "https://pass.winter-achim.de"
+
+signupsAllowed: false
+invitationsAllowed: false
+showPassHint: "false"
+
+adminToken:
+  value: "${base64decode(data.oci_secrets_secretbundle.admin_token.secret_bundle_content.0.content)}"
+
+database:
+  type: "postgresql"
+  host: "postgresql-cnpg-rw.postgresql.svc.cluster.local"
+  dbName: "vaultwarden"
+  username: "vaultwarden"
+  password: "${base64decode(data.oci_secrets_secretbundle.vaultwarden_db_password.secret_bundle_content.0.content)}"
+
+storage:
+  data:
+    name: "vaultwarden-data"
+    size: "1Gi"
+    class: "longhorn"
+    accessMode: "ReadWriteOnce"
+    keepPvc: true
 
 ingress:
-  main:
-    enabled: true
-    className: traefik
-    tls: 
-      - secretName: pass-tls
-        hosts:
-          - pass.winter-achim.de
-    hosts:
-      - host: pass.winter-achim.de
-        paths:
-          - path: /
-            pathType: Prefix
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt
-      external-dns.alpha.kubernetes.io/hostname: pass.winter-achim.de
-
-persistence:
-  data:
-    enabled: true
-    retain: true
-    accessMode: ReadWriteOnce
-    storageClass: "longhorn"
-    size: 1Gi
-
-postgresql:
   enabled: true
-  auth:
-    database: vaultwarden
-    postgresPassword: "${base64decode(data.oci_secrets_secretbundle.vaultwarden_db_password.secret_bundle_content.0.content)}"
-  primary:
-    persistence: 
-      enabled: true
-      storageClass: "longhorn"
-      size: 4Gi
+  class: traefik
+  nginxIngressAnnotations: false
+  hostname: pass.winter-achim.de
+  tls: true
+  tlsSecret: pass-tls
+  additionalAnnotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/hostname: pass.winter-achim.de
 YAML
   ]
 }
