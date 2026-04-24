@@ -1,0 +1,65 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextcloud
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://nextcloud.github.io/helm/
+    chart: nextcloud
+    targetRevision: 9.0.3
+    helm:
+      values: |
+        ingress:
+          enabled: true
+          className: traefik
+          tls:
+            - secretName: nextcloud-tls
+              hosts:
+                - cloud.winter-achim.de
+          annotations:
+            kubernetes.io/tls-acme: "true"
+            cert-manager.io/cluster-issuer: letsencrypt
+            external-dns.alpha.kubernetes.io/hostname: cloud.winter-achim.de
+        internalDatabase:
+          enabled: false
+        externalDatabase:
+          enabled: true
+          type: postgresql
+          host: postgresql-cnpg-rw.postgresql.svc.cluster.local
+          database: nextcloud
+          existingSecret:
+            enabled: true
+            secretName: nextcloud-credentials
+            usernameKey: db-username
+            passwordKey: db-password
+        phpClientHttpsFix:
+          enabled: true
+        nextcloud:
+          host: cloud.winter-achim.de
+          existingSecret:
+            enabled: true
+            secretName: nextcloud-credentials
+            usernameKey: nextcloud-username
+            passwordKey: nextcloud-password
+          configs:
+            post_max_size: 5GB
+            upload_max_filesize: 4GB
+        persistence:
+          enabled: true
+          storageClass: longhorn
+          size: 10Gi
+        primary:
+          name: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nextcloud
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

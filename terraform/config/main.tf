@@ -21,14 +21,15 @@ module "cn-postgres" {
   compartment_id = var.compartment_id
 }
 
-module "nextcloud" {
-  source = "./modules/nextcloud"
-
-  compartment_id = var.compartment_id
+module "app-secrets" {
+  source = "./modules/app-secrets"
 }
 
-module "vaultwarden" {
-  source = "./modules/vaultwarden"
+module "argocd" {
+  source = "./modules/argocd"
 
-  compartment_id = var.compartment_id
+  gitops_repo_url      = var.gitops_repo_url
+  gitops_repo_revision = var.gitops_repo_revision
+  gitops_apps_path     = var.gitops_apps_path
+  argocd_hostname      = var.argocd_hostname
 }

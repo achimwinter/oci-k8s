@@ -22,6 +22,8 @@ And with this being said, huge shoutout to [nce/ori-free-cloud-k8s](https://gith
   traefik
 - [x] Storage  
   with longhorn
+- [x] GitOps  
+  argo cd (apps)
 
 ## :keyboard: Setup
 
@@ -35,10 +37,18 @@ $ oci os bucket create --name terraform-states --versioning Enabled --compartmen
 
 * The infrastructure (everything to a usable k8s-api endpoint) is managed by
 terrafom in [infra](infra/)
-* The k8s-modules (usually helm) are managed by terraform in [config](config/)
+* The cluster base modules (traefik, cert-manager, longhorn, cnpg, argocd bootstrap) are managed by terraform in [config](config/)
+* Applications are managed by Argo CD from [`gitops/argocd/apps`](gitops/argocd/apps)
 
 These components are independed from eachother, but obv. the infra should
 be created first.
+
+### GitOps split (Terraform vs Argo CD)
+* **Terraform** provisions platform components (networking/infra, ingress, storage, cert-manager, cnpg, argocd bootstrap).
+* **Argo CD** deploys and reconciles apps (currently Nextcloud + Vaultwarden).
+* New services like Grafana or VPN should be added as Argo-CD Applications by default.
+
+FluxCD is intentionally not the default in this repository to keep one GitOps control plane.
 
 For the config part, we need to add a private `*.tfvars` file:
 ```

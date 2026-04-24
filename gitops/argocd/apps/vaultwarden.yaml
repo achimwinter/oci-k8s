@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vaultwarden
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://guerzon.github.io/vaultwarden
+    chart: vaultwarden
+    targetRevision: 0.35.1
+    helm:
+      values: |
+        domain: https://pass.winter-achim.de
+
+        signupsAllowed: false
+        invitationsAllowed: false
+        showPassHint: "false"
+
+        adminToken:
+          existingSecret: vaultwarden-admin-token
+          existingSecretKey: ADMIN_TOKEN
+
+        database:
+          type: postgresql
+          host: postgresql-cnpg-rw.postgresql.svc.cluster.local
+          dbName: vaultwarden
+          existingSecret: vaultwarden-db-credentials
+          existingSecretUserKey: username
+          existingSecretPasswordKey: password
+
+        storage:
+          data:
+            name: vaultwarden-data
+            size: 1Gi
+            class: longhorn
+            accessMode: ReadWriteOnce
+            keepPvc: true
+
+        ingress:
+          enabled: true
+          class: traefik
+          nginxIngressAnnotations: false
+          hostname: pass.winter-achim.de
+          tls: true
+          tlsSecret: pass-tls
+          additionalAnnotations:
+            cert-manager.io/cluster-issuer: letsencrypt
+            external-dns.alpha.kubernetes.io/hostname: pass.winter-achim.de
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vaultwarden
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
