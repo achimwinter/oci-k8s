@@ -39,6 +39,9 @@ spec:
             accessMode: ReadWriteOnce
             keepPvc: true
 
+        strategy:
+          type: Recreate
+
         ingress:
           enabled: true
           class: traefik
