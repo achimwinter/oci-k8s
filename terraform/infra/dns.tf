@@ -1,5 +1,5 @@
-resource "oci_dns_zone" "achim_winter_zone" {
+resource "oci_dns_zone" "nexpass_zone" {
   compartment_id = var.compartment_id
-  name           = var.achim_winter_domain_name
+  name           = var.nexpass_domain_name
   zone_type      = "PRIMARY"
 }

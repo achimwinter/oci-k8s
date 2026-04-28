@@ -40,7 +40,7 @@ variable "image_id" {
   default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaiirdhhwe3wlllk5xgovdblxlgvlz4fjr6r7zwkrhsaxg5exmbpta"
 }
 
-variable "achim_winter_domain_name" {
+variable "nexpass_domain_name" {
   description = "Main DNS Zone"
   type        = string
 

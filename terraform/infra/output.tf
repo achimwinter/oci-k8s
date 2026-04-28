@@ -11,5 +11,5 @@ output "node_pool_id" {
 }
 
 output "dns_ns" {
-  value = oci_dns_zone.achim_winter_zone
+  value = oci_dns_zone.nexpass_zone
 }
