@@ -11,9 +11,12 @@ resource "helm_release" "argocd" {
   lint             = true
   timeout          = 900
 
-  values = [<<YAML
+values = [<<YAML
 global:
   domain: ${var.argocd_hostname}
+configs:
+  params:
+    server.insecure: true
 server:
   ingress:
     enabled: true
@@ -26,4 +29,3 @@ server:
 YAML
   ]
 }
-
