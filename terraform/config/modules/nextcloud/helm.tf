@@ -19,11 +19,11 @@ ingress:
   tls: 
    - secretName: nextcloud-tls
      hosts:
-       - cloud.winter-achim.de
+       - cloud.nexpass.de
   annotations:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt
-    external-dns.alpha.kubernetes.io/hostname: cloud.winter-achim.de
+    external-dns.alpha.kubernetes.io/hostname: cloud.nexpass.de
 internalDatabase:
   enabled: false
 externalDatabase:
@@ -36,7 +36,7 @@ externalDatabase:
 phpClientHttpsFix:
    enabled: true
 nextcloud:
-  host: cloud.winter-achim.de
+  host: cloud.nexpass.de
   username: "${base64decode(data.oci_secrets_secretbundle.nextcloud_username.secret_bundle_content.0.content)}"
   password: "${base64decode(data.oci_secrets_secretbundle.nextcloud_password.secret_bundle_content.0.content)}"
   configs:

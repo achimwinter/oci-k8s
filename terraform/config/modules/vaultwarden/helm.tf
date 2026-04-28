@@ -12,7 +12,7 @@ resource "helm_release" "vaultwarden" {
   timeout          = 1200
 
   values = [<<YAML
-domain: "https://pass.winter-achim.de"
+domain: "https://pass.nexpass.de"
 
 signupsAllowed: false
 invitationsAllowed: false
@@ -40,12 +40,12 @@ ingress:
   enabled: true
   class: traefik
   nginxIngressAnnotations: false
-  hostname: pass.winter-achim.de
+  hostname: pass.nexpass.de
   tls: true
   tlsSecret: pass-tls
   additionalAnnotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    external-dns.alpha.kubernetes.io/hostname: pass.winter-achim.de
+    external-dns.alpha.kubernetes.io/hostname: pass.nexpass.de
 YAML
   ]
 }

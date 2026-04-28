@@ -12,7 +12,7 @@ variable "dashboard_enabled" {
 variable "dashboard_host" {
   type        = string
   description = "Hostname for Traefik Dashboard"
-  default     = "traefik.winter-achim.de"
+  default     = "traefik.nexpass.de"
 }
 
 variable "replica_count" {

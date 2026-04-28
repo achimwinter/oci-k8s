@@ -19,11 +19,11 @@ spec:
           tls:
             - secretName: nextcloud-tls
               hosts:
-                - cloud.winter-achim.de
+                - cloud.nexpass.de
           annotations:
             kubernetes.io/tls-acme: "true"
             cert-manager.io/cluster-issuer: letsencrypt
-            external-dns.alpha.kubernetes.io/hostname: cloud.winter-achim.de
+            external-dns.alpha.kubernetes.io/hostname: cloud.nexpass.de
         internalDatabase:
           enabled: false
         externalDatabase:
@@ -39,7 +39,7 @@ spec:
         phpClientHttpsFix:
           enabled: true
         nextcloud:
-          host: cloud.winter-achim.de
+          host: cloud.nexpass.de
           existingSecret:
             enabled: true
             secretName: nextcloud-credentials

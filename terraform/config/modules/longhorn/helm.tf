@@ -20,11 +20,11 @@ ingress:
   enabled: true
   ingressClassName: traefik
   tls: true
-  host: storage.winter-achim.de
+  host: storage.nexpass.de
   tlsSecret: longhorn-cert
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    external-dns.alpha.kubernetes.io/hostname: storage.winter-achim.de
+    external-dns.alpha.kubernetes.io/hostname: storage.nexpass.de
     traefik.ingress.kubernetes.io/router.middlewares: longhorn-system-longhorn-auth@kubernetescrd
 YAML
   ]

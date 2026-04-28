@@ -58,7 +58,7 @@ ingressClass:
 ingressRoute:
   dashboard:
     enabled: true
-    matchRule: Host(`traefik.winter-achim.de`)
+    matchRule: Host(`traefik.nexpass.de`)
     entryPoints: ["websecure"]
     middlewares:
       - name: dashboard-auth

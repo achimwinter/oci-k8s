@@ -44,5 +44,5 @@ variable "achim_winter_domain_name" {
   description = "Main DNS Zone"
   type        = string
 
-  default     = "winter-achim.de"
+  default     = "nexpass.de"
 }

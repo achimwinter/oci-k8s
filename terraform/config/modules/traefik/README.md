@@ -23,7 +23,7 @@ module "traefik" {
   
   # Optional
   dashboard_enabled = true
-  dashboard_host    = "traefik.winter-achim.de"
+  dashboard_host    = "traefik.nexpass.de"
   replica_count     = 2
   lb_shape_min      = "10"
   lb_shape_max      = "10"
@@ -39,7 +39,7 @@ module "traefik" {
 
 ## Dashboard Zugriff
 
-Das Traefik Dashboard ist unter `traefik.winter-achim.de` erreichbar (wenn aktiviert).
+Das Traefik Dashboard ist unter `traefik.nexpass.de` erreichbar (wenn aktiviert).
 
 **BasicAuth Secret erstellen:**
 ```bash
@@ -66,7 +66,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: app.winter-achim.de
+    - host: app.nexpass.de
       http:
         paths:
           - path: /
@@ -79,7 +79,7 @@ spec:
   tls:
     - secretName: my-app-tls
       hosts:
-        - app.winter-achim.de
+        - app.nexpass.de
 ```
 
 ### Mit Middleware (BasicAuth)

@@ -46,5 +46,5 @@ variable "gitops_apps_path" {
 variable "argocd_hostname" {
   description = "Public hostname for the Argo CD server ingress"
   type        = string
-  default     = "argocd.winter-achim.de"
+  default     = "argocd.nexpass.de"
 }
