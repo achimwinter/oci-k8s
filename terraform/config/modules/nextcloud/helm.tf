@@ -42,6 +42,10 @@ nextcloud:
   configs:
     post_max_size: 5GB
     upload_max_filesize: 4GB
+livenessProbe:
+  enabled: false
+readinessProbe:
+  enabled: false
 persistence:
   enabled: true
   storageClass: "longhorn"
