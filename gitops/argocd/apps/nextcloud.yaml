@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://nextcloud.github.io/helm/
     chart: nextcloud
-    targetRevision: 9.0.3
+    targetRevision: 9.0.5
     helm:
       values: |
         ingress:
@@ -51,9 +51,9 @@ spec:
             post_max_size: 5GB
             upload_max_filesize: 4GB
         livenessProbe:
-          enabled: true
+          enabled: false
         readinessProbe:
-          enabled: true
+          enabled: false
         persistence:
           enabled: true
           storageClass: longhorn
