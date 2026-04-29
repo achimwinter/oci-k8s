@@ -40,6 +40,8 @@ spec:
           enabled: true
         nextcloud:
           host: cloud.nexpass.de
+          trustedDomains:
+            - cloud.nexpass.de
           existingSecret:
             enabled: true
             secretName: nextcloud-credentials
@@ -49,9 +51,9 @@ spec:
             post_max_size: 5GB
             upload_max_filesize: 4GB
         livenessProbe:
-          enabled: false
+          enabled: true
         readinessProbe:
-          enabled: false
+          enabled: true
         persistence:
           enabled: true
           storageClass: longhorn
