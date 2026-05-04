@@ -126,7 +126,8 @@ spec:
     targetPort: 5432
     protocol: TCP
   selector:
-    postgresql: cnpg
+    cnpg.io/cluster: postgresql-cnpg
+    cnpg.io/instanceRole: primary
     role: primary
 YAML
 }
