@@ -2,7 +2,7 @@ resource "helm_release" "traefik" {
   chart      = "traefik"
   name       = "traefik"
   repository = "https://traefik.github.io/charts"
-  version    = "39.0.9"
+  version    = "40.2.0"
   namespace  = "traefik"
 
   create_namespace = true
