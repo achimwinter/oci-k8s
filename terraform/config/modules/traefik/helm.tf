@@ -2,7 +2,7 @@ resource "helm_release" "traefik" {
   chart      = "traefik"
   name       = "traefik"
   repository = "https://traefik.github.io/charts"
-  version    = "39.0.9"
+  version    = "40.2.0"
   namespace  = "traefik"
 
   create_namespace = true
@@ -41,12 +41,13 @@ ports:
 # Service configuration with OCI LoadBalancer
 service:
   enabled: true
-  type: LoadBalancer
   annotations:
     service.beta.kubernetes.io/oci-load-balancer-shape: flexible
     service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
     service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "10"
     oci.oraclecloud.com/oci-network-security-groups: ${oci_core_network_security_group.traefik_lb.id}
+  spec:
+    type: LoadBalancer
 
 # IngressClass configuration
 ingressClass:
