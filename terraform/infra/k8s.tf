@@ -20,8 +20,32 @@ resource "oci_containerengine_cluster" "k8s_cluster" {
   }
 }
 
+data "oci_containerengine_cluster_kube_config" "k8s_cluster_kube_config" {
+  cluster_id = oci_containerengine_cluster.k8s_cluster.id
+}
+
+resource "local_file" "kube_config" {
+  depends_on      = [oci_containerengine_node_pool.k8s_node_pool]
+  content         = data.oci_containerengine_cluster_kube_config.k8s_cluster_kube_config.content
+  filename        = "${path.module}/../.kube.config"
+  file_permission = "0400"
+}
+
 data "oci_identity_availability_domains" "ads" {
   compartment_id = var.compartment_id
+}
+
+data "oci_containerengine_node_pool_option" "node_pool_options" {
+  node_pool_option_id = "all"
+  compartment_id      = var.compartment_id
+}
+
+locals {
+  latest_arm_image = [
+    for source in data.oci_containerengine_node_pool_option.node_pool_options.sources :
+    source.image_id
+    if can(regex(".*aarch.*OKE-${replace(var.kubernetes_version, "v", "")}.*", source.source_name))
+  ][0]
 }
 
 resource "oci_containerengine_node_pool" "k8s_node_pool" {
@@ -60,7 +84,7 @@ resource "oci_containerengine_node_pool" "k8s_node_pool" {
     ocpus         = 2
   }
   node_source_details {
-    image_id    = var.image_id
+    image_id    = local.latest_arm_image
     source_type = "image"
 
     boot_volume_size_in_gbs = 100

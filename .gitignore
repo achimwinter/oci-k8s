@@ -1,5 +1,8 @@
 # Local .terraform directories
 **/.terraform/*
+
+# Generated kubeconfig
+**/.kube.config
 .DS_Store
 
 # .tfstate files

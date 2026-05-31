@@ -32,14 +32,6 @@ variable "kubernetes_worker_nodes" {
   default     = 2
 }
 
-variable "image_id" {
-  # https://docs.oracle.com/en-us/iaas/images/oke-worker-node-oracle-linux-8x/
-  description = "OCID of the latest oracle linux"
-  type        = string
-
-  default     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaiirdhhwe3wlllk5xgovdblxlgvlz4fjr6r7zwkrhsaxg5exmbpta"
-}
-
 variable "nexpass_domain_name" {
   description = "Main DNS Zone"
   type        = string
