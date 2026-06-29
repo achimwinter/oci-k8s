@@ -2,7 +2,7 @@ resource "helm_release" "cloudnative_pg" {
   chart      = "cloudnative-pg"
   name       = "cloudnative-pg"
   repository = "https://cloudnative-pg.github.io/charts"
-  version    = "0.28.2"
+  version    = "0.29.0"
   namespace  = "cn-pg"
 
   create_namespace = true
