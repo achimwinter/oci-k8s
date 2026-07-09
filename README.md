@@ -12,9 +12,6 @@ LB (10Mbps), because that's free as well.
 
 > :warning: This project uses arm instances, no x86 architecture
 
-I haven't created most of this, i just use it for future development stuff and to understand kubernetes better. 
-And with this being said, huge shoutout to [nce/ori-free-cloud-k8s](https://github.com/nce/oci-free-cloud-k8s)
-
 ## :wrench: Tooling
 - [x] K8s control plane
 - [x] Worker Nodes

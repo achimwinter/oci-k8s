@@ -21,8 +21,19 @@ module "cn-postgres" {
   compartment_id = var.compartment_id
 }
 
+module "external-secrets" {
+  source = "./modules/external-secrets"
+
+  compartment_id = var.compartment_id
+  tenancy_ocid   = var.tenancy_ocid
+  vault_id       = var.vault_id
+  region         = var.region
+}
+
 module "app-secrets" {
   source = "./modules/app-secrets"
+
+  cluster_secret_store_name = module.external-secrets.cluster_secret_store_name
 }
 
 module "argocd" {

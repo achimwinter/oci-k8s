@@ -25,6 +25,11 @@ variable "vault_id" {
   type        = string
 }
 
+variable "tenancy_ocid" {
+  description = "OCI tenancy OCID, used to create the IAM dynamic group/policy for External Secrets Operator"
+  type        = string
+}
+
 variable "gitops_repo_url" {
   description = "Git repository URL that Argo CD should sync from"
   type        = string
