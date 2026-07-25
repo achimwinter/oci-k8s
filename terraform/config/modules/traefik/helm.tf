@@ -2,7 +2,7 @@ resource "helm_release" "traefik" {
   chart      = "traefik"
   name       = "traefik"
   repository = "https://traefik.github.io/charts"
-  version    = "40.3.0"
+  version    = "41.0.2"
   namespace  = "traefik"
 
   create_namespace = true
@@ -82,12 +82,11 @@ additionalArguments:
   - "--accesslog.format=json"
 
 # Logs
-logs:
-  general:
-    level: INFO
-  access:
-    enabled: true
-    format: json
+log:
+  level: INFO
+accessLog:
+  enabled: true
+  format: json
 
 # Resources
 resources:
