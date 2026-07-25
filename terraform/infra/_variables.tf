@@ -3,6 +3,11 @@ variable "compartment_id" {
   description = "The compartment to create the resources in"
 }
 
+variable "tenancy_id" {
+  type        = string
+  description = "OCI tenancy OCID (required by the vcn module >= 4.0.0)"
+}
+
 variable "region" {
   description = "OCI region"
   type        = string

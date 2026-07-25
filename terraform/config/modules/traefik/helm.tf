@@ -82,12 +82,11 @@ additionalArguments:
   - "--accesslog.format=json"
 
 # Logs
-logs:
-  general:
-    level: INFO
-  access:
-    enabled: true
-    format: json
+log:
+  level: INFO
+accessLog:
+  enabled: true
+  format: json
 
 # Resources
 resources:
