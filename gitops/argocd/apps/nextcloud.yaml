@@ -57,7 +57,7 @@ spec:
         persistence:
           enabled: true
           storageClass: longhorn
-          size: 10Gi
+          size: 30Gi
         primary:
           name: main
   destination:
