@@ -26,10 +26,6 @@ spec:
             external-dns.alpha.kubernetes.io/hostname: cloud.nexpass.de
         internalDatabase:
           enabled: false
-        image:
-          repository: nextcloud
-          tag: 35.0.5-apache
-          pullPolicy: Always
         externalDatabase:
           enabled: true
           type: postgresql
