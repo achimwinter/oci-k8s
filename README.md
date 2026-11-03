@@ -145,6 +145,18 @@ inventories, and Longhorn's **volume engine** versions. Updating the Longhorn
 chart does not necessarily upgrade engines already serving volumes. Follow the
 [supported engine procedure](https://longhorn.io/docs/1.13.0/deploy/upgrade/upgrade-engine/)
 with verified backups; do not jump unsupported live-upgrade paths.
+For older V1 engines, a controlled offline path through each intermediate minor
+release avoids unsupported live jumps (for example 1.11 -> 1.12 -> 1.13).
+Before detaching application volumes, temporarily pause Argo CD reconciliation
+(including the parent application), stop the clients, and use CloudNativePG's
+[declarative hibernation](https://cloudnative-pg.io/docs/1.30/declarative_hibernation/)
+to stop PostgreSQL while retaining its PVC. Back up files, database contents and
+restoration metadata to storage independent of the workers; test the SQL restore,
+archive integrity and checksums before changing engines. Such backups contain
+private files and credentials and must never be committed. After each engine
+step, reattach and verify all replicas before continuing. Finally remove the
+hibernation annotation, disable Nextcloud maintenance mode and restore all
+temporary reconciliation settings.
 Keep raw scanner reports and distinguish package/CVE matches, vendor backports,
 inactive installed kernels, and reachable application vulnerabilities. A latest
 chart or a successful rollout is not evidence that all bundled CVEs are fixed.
