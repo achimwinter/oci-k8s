@@ -104,7 +104,11 @@ Check both control-plane and worker versions, and plan node maintenance
 separately. [The node-pool configuration](terraform/infra/k8s.tf) selects the
 newest date-stamped Oracle Linux 8.10 ARM64 image for the exact Kubernetes
 version. It does not depend on API result ordering or silently switch to Oracle
-Linux 9. Before rebooting or replacing a node:
+Linux 9. An OKE image can still lag behind
+[Oracle's kernel security updates](https://linux.oracle.com/errata/). Compare the
+running kernel with the current vendor packages after provisioning; installing
+a newer kernel is not sufficient until a controlled reboot activates it.
+Before rebooting or replacing a node:
 
 * Verify recoverable database and file backups. Device synchronization is not
   an independent Nextcloud backup, and a Vaultwarden JSON export does not
