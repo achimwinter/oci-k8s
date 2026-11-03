@@ -13,6 +13,8 @@ spec:
     targetRevision: 9.4.1
     helm:
       values: |
+        image:
+          pullPolicy: Always
         ingress:
           enabled: true
           className: traefik

@@ -71,3 +71,45 @@ This repo utilizes renovate to update all terraform providers and helm charts.
 The helm chart versions need to be stored alongside the repository info, and
 not in tf variables. Using variables might be possible, but quite ugly.
 * https://github.com/renovatebot/renovate/discussions/16052
+
+### Security updates and rebuilt images
+
+Nextcloud uses the image version supplied by its Helm chart and
+`image.pullPolicy: Always`. This lets replacement pods pick up security rebuilds
+published under the same image tag. A new image publication does not update an
+already running container. After checking the new build, replace the pod with:
+
+```sh
+kubectl -n nextcloud rollout restart deployment/nextcloud
+kubectl -n nextcloud rollout status deployment/nextcloud --timeout=10m
+kubectl -n nextcloud exec deployment/nextcloud -- php -v
+kubectl -n nextcloud exec deployment/nextcloud -- \
+  dpkg-query -W '-f=${Package} ${Version} source=${source:Version}\n' libbrotli1
+```
+
+Check the distribution's security tracker for patched package versions:
+upstream library versions alone do not account for Debian security backports.
+For [CVE-2026-111497](https://security-tracker.debian.org/tracker/CVE-2026-111497),
+Debian Trixie's Brotli fix is `1.1.0-2+deb13u1`; `1.1.0-2+b7` does not contain it.
+The [Traefik chart](terraform/config/modules/traefik/helm.tf) must also be updated
+for application security releases; chart 42.3.0 ships Traefik 3.7.17.
+
+Argo CD reconciles application configuration from `main`. Publish changes to
+[the Nextcloud Application](gitops/argocd/apps/nextcloud.yaml) before relying on
+them; manual deployment edits can be reverted by self-healing.
+
+Container image updates do not patch the worker-node kernel. Updating the OKE
+node-pool version or source image also does not update existing nodes in place.
+Check both control-plane and worker versions, and plan node maintenance
+separately. Before rebooting or replacing a node:
+
+* Verify recoverable database and file backups. Device synchronization is not
+  an independent Nextcloud backup, and a Vaultwarden JSON export does not
+  necessarily include attachments.
+* Check Longhorn volume/replica health and PodDisruptionBudgets. This cluster has
+  two workers and a single PostgreSQL instance; maintenance can interrupt apps.
+* Follow the supported OKE and Longhorn maintenance procedures, one node at a
+  time. Do not force-delete pods, bypass disruption budgets, or delete a worker's
+  boot volume while it still contains required Longhorn replicas.
+* Verify the running kernel (or proven livepatch coverage), node readiness,
+  healthy volumes and application availability after each node.
