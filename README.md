@@ -101,7 +101,10 @@ them; manual deployment edits can be reverted by self-healing.
 Container image updates do not patch the worker-node kernel. Updating the OKE
 node-pool version or source image also does not update existing nodes in place.
 Check both control-plane and worker versions, and plan node maintenance
-separately. Before rebooting or replacing a node:
+separately. [The node-pool configuration](terraform/infra/k8s.tf) selects the
+newest date-stamped Oracle Linux 8.10 ARM64 image for the exact Kubernetes
+version. It does not depend on API result ordering or silently switch to Oracle
+Linux 9. Before rebooting or replacing a node:
 
 * Verify recoverable database and file backups. Device synchronization is not
   an independent Nextcloud backup, and a Vaultwarden JSON export does not

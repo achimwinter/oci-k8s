@@ -41,11 +41,13 @@ data "oci_containerengine_node_pool_option" "node_pool_options" {
 }
 
 locals {
-  latest_arm_image = [
+  arm_images_by_name = {
     for source in data.oci_containerengine_node_pool_option.node_pool_options.sources :
-    source.image_id
-    if can(regex(".*aarch.*OKE-${replace(var.kubernetes_version, "v", "")}.*", source.source_name))
-  ][0]
+    source.source_name => source.image_id
+    if startswith(source.source_name, "Oracle-Linux-8.10-aarch64-") &&
+    strcontains(source.source_name, "-OKE-${trimprefix(var.kubernetes_version, "v")}-")
+  }
+  latest_arm_image = local.arm_images_by_name[reverse(sort(keys(local.arm_images_by_name)))[0]]
 }
 
 resource "oci_containerengine_node_pool" "k8s_node_pool" {
