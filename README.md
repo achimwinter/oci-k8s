@@ -74,7 +74,7 @@ not in tf variables. Using variables might be possible, but quite ugly.
 
 ### Security updates and rebuilt images
 
-Nextcloud uses the image version supplied by its Helm chart and
+Nextcloud and Vaultwarden use the image version supplied by their Helm charts and
 `image.pullPolicy: Always`. This lets replacement pods pick up security rebuilds
 published under the same image tag. A new image publication does not update an
 already running container. After checking the new build, replace the pod with:
@@ -129,3 +129,22 @@ Before rebooting or replacing a node:
   budget after the database is ready again.
 * Verify the running kernel (or proven livepatch coverage), node readiness,
   healthy volumes and application availability after each node.
+
+The PostgreSQL operand image is pinned separately in the
+[CloudNativePG cluster](terraform/config/modules/cn-pg/cn-pg-cluster.tf). Updating
+the operator alone does not update an existing cluster's PostgreSQL image.
+Select a current ARM64 build from the
+[official system-trixie catalog](https://github.com/cloudnative-pg/artifacts/blob/main/image-catalogs/catalog-system-trixie.yaml),
+retain the database major version, scan its digest, and explicitly update
+`imageName`. The single-instance rollout briefly interrupts database clients.
+Docker updates are currently disabled in Renovate, so this pin requires manual
+review.
+
+A CVE scan must cover the running image digests, init containers, host package
+inventories, and Longhorn's **volume engine** versions. Updating the Longhorn
+chart does not necessarily upgrade engines already serving volumes. Follow the
+[supported engine procedure](https://longhorn.io/docs/1.13.0/deploy/upgrade/upgrade-engine/)
+with verified backups; do not jump unsupported live-upgrade paths.
+Keep raw scanner reports and distinguish package/CVE matches, vendor backports,
+inactive installed kernels, and reachable application vulnerabilities. A latest
+chart or a successful rollout is not evidence that all bundled CVEs are fixed.

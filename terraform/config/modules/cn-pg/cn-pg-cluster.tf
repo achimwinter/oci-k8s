@@ -30,6 +30,8 @@ spec:
   # Cluster Configuration
   instances: 1
   primaryUpdateStrategy: unsupervised
+  # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.6-202611030838-system-trixie@sha256:44d17e8570dc25055376148a2918840def5bef0193969be3e79101afa25eafc2
   
   # PostgreSQL Configuration
   postgresql:
