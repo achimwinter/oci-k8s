@@ -111,8 +111,17 @@ Linux 9. Before rebooting or replacing a node:
   necessarily include attachments.
 * Check Longhorn volume/replica health and PodDisruptionBudgets. This cluster has
   two workers and a single PostgreSQL instance; maintenance can interrupt apps.
+* Inspect existing PV `spec.nodeAffinity` before replacing workers. Legacy
+  Longhorn PVs can still name retired nodes even though the replicated data is
+  available elsewhere. This OKE API does not allow editing that affinity.
+  Correct retained PV/PVC bindings while preserving their Longhorn volume IDs;
+  never delete the backing data volumes as part of a metadata repair.
 * Follow the supported OKE and Longhorn maintenance procedures, one node at a
   time. Do not force-delete pods, bypass disruption budgets, or delete a worker's
   boot volume while it still contains required Longhorn replicas.
+* For planned downtime of the single PostgreSQL instance, use CloudNativePG's
+  documented maintenance controls with PVC reuse. Restore the original
+  maintenance settings and verify that the operator recreates its disruption
+  budget after the database is ready again.
 * Verify the running kernel (or proven livepatch coverage), node readiness,
   healthy volumes and application availability after each node.
