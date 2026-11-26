@@ -17,7 +17,7 @@ global:
   checkNewVersion: false
 
 deployment:
-  replicas: 0
+  replicas: 1
 
 # Ports configuration
 # Use non-privileged ports for container, service will map to 80/443
